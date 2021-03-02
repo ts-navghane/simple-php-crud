@@ -1,0 +1,4 @@
+/.idea
+/.docker/build/postgres/data
+/.docker/build/nginx/logs
+/app/vendor
