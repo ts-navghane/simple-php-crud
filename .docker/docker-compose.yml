@@ -1,0 +1,47 @@
+version: '3.8'
+
+networks:
+  backend:
+    name: backendnet
+    driver: bridge
+
+services:
+  spcphp:
+    container_name: spcphp
+    build:
+      context: ./build/php/
+    depends_on:
+      - spcpostgres
+    restart: on-failure
+    volumes:
+      - ./../app:/var/www/html
+    networks:
+      - backend
+  spcnginx:
+    container_name: spcnginx
+    build:
+      context: ./build/nginx/
+    depends_on:
+      - spcphp
+    ports:
+      - 8000:80
+      - 8443:443
+    restart: always
+    volumes:
+      - ./../app/:/var/www/html
+      - ./build/nginx/logs/:/var/log/nginx
+    networks:
+      - backend
+  spcpostgres:
+    container_name: spcpostgres
+    build:
+      context: ./build/postgres/
+    restart: always
+    environment:
+      POSTGRES_USER: spc_user
+      POSTGRES_DB: spc_db
+      POSTGRES_PASSWORD: spc_pass
+    volumes:
+      - ./build/postgres/data:/var/lib/postgresql/data
+    networks:
+      - backend

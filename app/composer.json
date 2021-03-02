@@ -1,0 +1,22 @@
+{
+  "name": "ts-navghane/simple-php-crud",
+  "description": "This application is a demonstration of PHP crud using docker.",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tejas Navghane",
+      "email": "ts.navghane@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "ext-pdo": "*",
+    "ext-pgsql": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
